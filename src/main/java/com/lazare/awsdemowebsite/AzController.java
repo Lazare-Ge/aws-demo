@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-public class AWSController {
+public class AzController {
 
 
     @GetMapping
@@ -18,8 +18,6 @@ public class AWSController {
         String region = EC2MetadataUtils.getEC2InstanceRegion();
         return Map.of("AZ", availabilityZone, "region", region);
     }
-
-
 
 
 

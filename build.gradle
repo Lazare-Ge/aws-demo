@@ -27,7 +27,9 @@ repositories {
 dependencies {
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.783')
     implementation 'com.amazonaws:aws-java-sdk-ec2:1.12.783'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.783'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
