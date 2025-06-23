@@ -1,0 +1,35 @@
+name: Build and Deploy to S3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '23'
+
+      - name: Grant execute permissions for Gradle
+        run: chmod +x gradlew
+
+      - name: Build JAR
+        run: ./gradlew clean build
+
+      - name: Upload JAR to S3
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --exact-timestamps
+        env:
+          AWS_S3_BUCKET: lazare-giorgobiani-web-content-server-bucket1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-2
+          SOURCE_DIR: build/libs
