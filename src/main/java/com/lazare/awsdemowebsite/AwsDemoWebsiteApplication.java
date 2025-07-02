@@ -1,12 +1,15 @@
 package com.lazare.awsdemowebsite;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.lazare.awsdemowebsite.service.NotificationSubscriptionService;
+import com.lazare.awsdemowebsite.scheduled.SubscriptionConfirmationListener;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class AwsDemoWebsiteApplication {
 
     public static void main(String[] args) {
@@ -14,8 +17,14 @@ public class AwsDemoWebsiteApplication {
     }
 
     @Bean
-    AmazonS3 s3Client(){
-        return AmazonS3ClientBuilder.defaultClient();
-    }
+    CommandLineRunner cmdRunner(NotificationSubscriptionService service, SubscriptionConfirmationListener listener){
+        return args -> {
+//            String mail = "lazare.giorgobiani.lg@gmail.com";
+//            service.subscribe("lazare.giorgobiani.lg@gmail.com");
+            listener.pollPendingSubscriptions();
 
+            System.out.println("DEBUG!");
+        };
+
+    }
 }

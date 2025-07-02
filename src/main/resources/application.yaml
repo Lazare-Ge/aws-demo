@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: aws-demo-website
+
+  datasource:
+    url: jdbc:mysql://lazaregcf-mysql.c124206solfi.us-east-2.rds.amazonaws.com:3306/appdb
+#    username: springapp
+    username: adminuser
+    password: adminpassword123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    type: com.lazare.awsdemowebsite.config.RDSIAMDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+aws:
+  sqs:
+    queueUrl: https://sqs.us-east-2.amazonaws.com/151182332702/lazaregnqUploadsNotificationQueue
+  sns:
+    topicArn: arn:aws:sns:us-east-2:151182332702:lazaregnqUploadsNotificationTopic

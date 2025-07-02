@@ -1,4 +1,4 @@
-package com.lazare.awsdemowebsite;
+package com.lazare.awsdemowebsite.controller;
 
 import com.amazonaws.util.EC2MetadataUtils;
 import lombok.RequiredArgsConstructor;
