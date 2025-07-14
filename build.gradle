@@ -25,6 +25,7 @@ repositories {
 
 
 dependencies {
+//    implementation 'software.amazon.jdbc:aws-advanced-jdbc-wrapper:${awsAdvancedJdbcVersion}'
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.783')
     implementation 'software.amazon.awssdk:sqs:2.20.5'
     implementation 'software.amazon.awssdk:sns:2.20.5'

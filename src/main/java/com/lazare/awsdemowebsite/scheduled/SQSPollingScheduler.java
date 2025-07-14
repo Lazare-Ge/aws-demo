@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.sqs.model.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 @Slf4j
 public class SQSPollingScheduler {
 
@@ -33,7 +33,7 @@ public class SQSPollingScheduler {
         this.topicArn = topicArn;
     }
 
-    @Scheduled(fixedDelayString = "PT10S")
+//    @Scheduled(fixedDelayString = "PT10S")
     public void pollAndPublish() {
         log.info("Initiating message polling!");
         ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()

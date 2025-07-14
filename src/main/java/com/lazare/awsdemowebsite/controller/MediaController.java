@@ -1,10 +1,9 @@
 package com.lazare.awsdemowebsite.controller;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.*;
+import com.lazare.awsdemowebsite.entity.ImageMetadata;
+import com.lazare.awsdemowebsite.entity.ImageMetadataRepository;
 import com.lazare.awsdemowebsite.service.NotificationQueueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -82,6 +82,8 @@ public class MediaController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    private final ImageMetadataRepository imageMetadataRepository;
+
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
@@ -106,6 +108,10 @@ public class MediaController {
                     .path("/media/")
                     .path(URLEncoder.encode(filename, StandardCharsets.UTF_8))
                     .toUriString();
+
+            ImageMetadata imageMeta = new ImageMetadata(null, filename, extension, contentType, downloadUrl, size, Instant.now());
+
+            imageMetadataRepository.save(imageMeta);
 
             StringBuilder body = new StringBuilder();
             body.append("An image has been uploaded!\n\n")
@@ -133,6 +139,5 @@ public class MediaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deletion failed.");
         }
     }
-
 
 }

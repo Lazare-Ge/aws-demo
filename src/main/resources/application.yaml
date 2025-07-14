@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 80
 spring:
   application:
     name: aws-demo-website
 
   datasource:
-    url: jdbc:mysql://lazaregcf-mysql.c124206solfi.us-east-2.rds.amazonaws.com:3306/appdb
+    url: jdbc:mysql://lazareg-lambda-stack-mysql.c124206solfi.us-east-2.rds.amazonaws.com:3306/appdb
 #    username: springapp
     username: adminuser
     password: adminpassword123
@@ -17,6 +17,6 @@ spring:
 
 aws:
   sqs:
-    queueUrl: https://sqs.us-east-2.amazonaws.com/151182332702/lazaregnqUploadsNotificationQueue
+    queueUrl: https://sqs.us-east-2.amazonaws.com/151182332702/lazareg-lambda-stack-UploadsNotificationQueue
   sns:
-    topicArn: arn:aws:sns:us-east-2:151182332702:lazaregnqUploadsNotificationTopic
+    topicArn: arn:aws:sns:us-east-2:151182332702:lazareg-lambda-stack-UploadsNotificationTopic
